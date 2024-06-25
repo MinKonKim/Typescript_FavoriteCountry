@@ -15,7 +15,11 @@ const CountryCard: React.FC<CoutryCardProps> = ({
   };
   return (
     <div
-      className=" h-[10rem] bg-slate-50 border rounded-lg p-3 shadow-md m-1 flex items-center justify-center flex-col hover:outline hover:outline-cyan-500 hover:shadow-cyan-400 hover:brightness-110"
+      className={`h-[10rem] bg-slate-50 border rounded-lg p-3 shadow-md m-1 flex items-center justify-center flex-col ${
+        country.checked
+          ? "outline outline-cyan-500 shadow-cyan-400 hover:brightness-110"
+          : "hover:outline hover:outline-cyan-500 hover:shadow-cyan-400 hover:brightness-110"
+      }`}
       onClick={handleClick}
     >
       <div className="w-[5rem]">

@@ -6,19 +6,25 @@ import SelectedCountryList from "./components/SelectedCountryList";
 import { CountryInfo } from "./model/countryInfo";
 
 function App() {
-  const [coutries, setCoutries] = useState<CountryInfo[]>([]);
+  const [countries, setCountries] = useState<CountryInfo[]>([]);
+  const [selectedCountries, setSelectedCountries] = useState<CountryInfo[]>([]);
   useEffect(() => {
-    const Countries = async () => {
+    const fetchCountries = async () => {
       const response = await getCountries();
-      setCoutries(response);
+      setCountries(response);
     };
-    Countries();
+    fetchCountries();
+
+    setSelectedCountries(countries.filter((country) => country.checked));
   }, []);
-  return;
-  <div>
-    <SelectedCountryList />
-    <CountryList />
-  </div>;
+  return (
+    <div>
+      <h1 className="text-4xl font-bold p-4 m-5">Favorite Contry</h1>
+      <SelectedCountryList countries={selectedCountries} />
+      <hr className="mt-5 mb-5" />
+      <CountryList countries={countries} />
+    </div>
+  );
 }
 
 export default App;

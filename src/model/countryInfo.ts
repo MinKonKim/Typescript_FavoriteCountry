@@ -1,3 +1,4 @@
+// api + checked
 export type CountryInfo = {
   name: {
     official: string;
@@ -10,3 +11,6 @@ export type CountryInfo = {
   };
   checked: boolean;
 };
+
+// api 받기 위한 타입
+export type PickedCountryInfo = Pick<CountryInfo, "name" | "capital" | "flags">;

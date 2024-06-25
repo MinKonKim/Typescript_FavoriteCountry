@@ -7,22 +7,36 @@ import { CountryInfo } from "./model/countryInfo";
 
 function App() {
   const [countries, setCountries] = useState<CountryInfo[]>([]);
-  const [selectedCountries, setSelectedCountries] = useState<CountryInfo[]>([]);
   useEffect(() => {
     const fetchCountries = async () => {
       const response = await getCountries();
       setCountries(response);
     };
     fetchCountries();
-
-    setSelectedCountries(countries.filter((country) => country.checked));
   }, []);
+
+  const handleCountryChecked = (selectedcountry: CountryInfo) => {
+    const updateCountries = countries.map((country) =>
+      country.name.common === selectedcountry.name.common
+        ? { ...country, checked: !country.checked }
+        : country
+    );
+    setCountries(updateCountries);
+  };
+
   return (
     <div>
       <h1 className="text-4xl font-bold p-4 m-5">Favorite Contry</h1>
-      <SelectedCountryList countries={selectedCountries} />
+      <SelectedCountryList
+        countries={countries.filter((country) => country.checked)}
+        onCountryChecked={handleCountryChecked}
+      />
       <hr className="mt-5 mb-5" />
-      <CountryList countries={countries} />
+      <h1 className="text-4xl font-bold p-4 m-5">Countries</h1>
+      <CountryList
+        countries={countries.filter((country) => !country.checked)}
+        onCountryChecked={handleCountryChecked}
+      />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { CountryInfo, PickedCountryInfo } from "../model/countryInfo";
+import { CountryInfo, OmitedCountryInfo } from "../model/countryInfo";
 
 export const getCountries = async (): Promise<CountryInfo[]> => {
   try {
-    const { data } = await axios.get<PickedCountryInfo[]>(
+    const { data } = await axios.get<OmitedCountryInfo[]>(
       "https://restcountries.com/v3.1/all"
     );
     return data.map(({ name, capital, flags }) => ({
@@ -13,7 +13,7 @@ export const getCountries = async (): Promise<CountryInfo[]> => {
       checked: false,
     }));
   } catch (error) {
-    console.error("Error fetching countries:", error);
+    console.error("Country 정보 요청 중 에러:", error);
     throw error;
   }
 };
